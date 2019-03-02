@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <title>Coin Flip</title>
+  </head>
+<style>
+  ul
+  {
+    text-align: center;
+    font-weight: bold;
+    color: #BB8840;
+  }
+  li
+  {
+    display: inline; 
+    padding-right: 40px; 
+  }
+  form
+  {
+  	color: #FFFEFE;
+  }
+</style>  
+<script src="Chart.min.js"></script>
+  <body background="coins.jpg">
+     <div style="background-color: #262550; padding: 15px;">
+   	<ul>
+                	<li><a href="DiceRoll.html">Dice Roller</a> </li>
+		<li><a href="CoinFlip.html">Coin Flip</a> </li>
+		<li><a href="MontyHall.html">Monty Hall</a> </li>
+       	</ul>
+    </div>
+<div style="background-color: #262550; padding: 15px;">
+	<h4 style="color: #BB8840">Flip one coin, or flip a coin ten times and choose how many trials (This will graph number of heads for all the trials).</h4>
+</div>
+  <body>
+  <form> 
+      <br>
+      How Many Flips (1 or 10):
+      <br>
+      <input type="number" id="numFlips" min="1" max="10">
+      <br>
+      How Many Trials (For 10 Flips only):
+      <br>
+      <input type="number" id="numTrials" min="1" max="500000">
+      <br>
+      <input name="generate" type="button" value="Submit!" onclick='createTable();'/>
+    </form>
+    <canvas id="income" width="600" height="400"></canvas>
+<script>
+	function createTable()
+	{
+		var income = document.getElementById("income").getContext("2d");
+		var fli = document.getElementById("numFlips");
+		var numFlips = fli.valueAsNumber;
+		var numTrials = document.getElementById("numTrials").value;
+		var heads = 0;
+		var tails = 0;
+		var h = [0,0,0,0,0,0,0,0,0,0,0];
+		if(numFlips === 1 && numTrials <= 500000)
+		{
+			if(Math.round(Math.random())===0){
+				confirm("Heads!");
+				
+				}
+			else{
+				confirm("Tails!");
+				}
+		}
+		else if(numFlips===10 && numTrials <= 500000)
+		{
+			for(y=0;y<numTrials;y++)
+			{
+				for(f=0;f<10;f++)
+				{
+					if(Math.round(Math.random())===0)
+						heads++;
+					else
+						tails++;
+				}
+				h[heads]++;
+				heads=0;
+				tails=0;
+			}
+			var barData = 
+ 			{
+  	  		labels: ["0", "1", "2", "3", "4", "5","6","7","8","9","10"],
+  	 		datasets: [
+   	     	{
+  	         label: "Number of Heads",
+   	         fillColor: "rgba(166, 125, 56)",
+   	         strokeColor: "rgba(177, 75, 106)",
+    	     scaleGridLineColor : "rgba(187, 136, 64)",
+    	     highlightFill: "rgba(220,220,220,0.75)",
+      	     highlightStroke: "rgba(220,220,220,1)",
+      	     data:h
+     	   	}
+  	  		]
+			};
+			new Chart(income).Bar(barData);
+		}
+	}
+</script>
+  </body>
+</html>

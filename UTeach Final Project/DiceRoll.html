@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<style>
+  ul
+  {
+    text-align: center;
+    font-weight: bold;
+    color: #BB8840;
+  }
+  li
+  {
+    display: inline; 
+    padding-right: 40px; 
+  }
+</style>  
+<script src="Chart.min.js"></script>
+  <head>
+  	<meta charset="utf-8">
+    <title>Dice Roll</title>
+  </head>
+  <body background="dice.jpg">
+     <div style="background-color: #262550; padding: 15px;">
+   	<ul>
+                	<li><a href="DiceRoll.html">Dice Roller</a> </li>
+		<li><a href="CoinFlip.html">Coin Flip</a> </li>
+		<li><a href="MontyHall.html">Monty Hall</a> </li>
+       	</ul>
+    </div>
+<div style="background-color: #262550; padding: 15px;">
+	<h4 style="color: #BB8840">The Law of Large Numbers tells you that the more rolls you do, the closer to reaching the expected probabilities of 1/6 for one die and each expected probability of the dice sums, num/36.</h4>
+</div>
+    <form> 
+      <br>
+      How Many Rolls:
+      <br>
+      <input type="number" id="numRolls" min="1" max="1000000">
+      <br>
+      Roll One or Two Dice?
+      <br>
+      <input type="number" id="NumDice" min="1" max="2">
+      <br>
+      <input name="generate" type="button" value="Create Graph!" onclick='createTable();'/>
+    </form>
+
+<canvas id="income" width="600" height="400"></canvas>
+<script>
+function createTable()
+{
+var income = document.getElementById("income").getContext("2d");
+var num1 = [0,0,0,0,0,0];
+var num2 = [0,0,0,0,0,0,0,0,0,0,0];
+var ran = 0;
+if(document.getElementById('NumDice').value=="1" && document.getElementById('numRolls').value <= 1000000)
+{
+ for(i=0; i<document.getElementById('numRolls').value; i++)
+  {
+	ran =(Math.floor(Math.random()*6));
+    num1[ran]++;
+  }
+ var barData = 
+ {
+    labels: ["1", "2", "3", "4", "5", "6"],
+    datasets: [
+        {
+            label: "Dice Rolls",
+            fillColor: "rgba(166, 125, 56)",
+            strokeColor: "rgba(177, 75, 106)",
+            scaleGridLineColor : "rgba(187, 136, 64)",
+            highlightFill: "rgba(220,220,220,0.75)",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: num1
+        }
+    ]
+};
+}
+else if(document.getElementById('NumDice').value==="2" && document.getElementById('numRolls').value <= 1000000)
+{
+for(q=0; q<document.getElementById('numRolls').value;q++)
+  {
+    ran =(Math.floor(Math.random()*6)+Math.floor(Math.random()*6));
+    num2[ran]++;
+  }
+var barData = 
+ {
+    labels: ["2", "3", "4", "5", "6","7","8","9","10","11","12"],
+    datasets: [
+        {
+            label: "Dice Rolls",
+            fillColor: "rgba(166, 125, 56)",
+            strokeColor: "rgba(220,220,220,0.8)",
+            scaleGridLineColor : "rgba(187, 136, 64)",
+            highlightFill: "rgba(220,220,220,0.75)",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: num2
+        }
+    ]
+};
+}
+new Chart(income).Bar(barData);
+}
+</script>
+
+  </body>
+
+</html>

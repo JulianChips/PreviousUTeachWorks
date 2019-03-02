@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+
+  <head>
+    <title>Monty Hall</title>
+  </head>
+  <style>
+  ul
+  {
+    text-align: center;
+    font-weight: bold;
+    color: #BB8840;
+  }
+  li
+  {
+    display: inline; 
+    padding-right: 40px; 
+  }
+  form
+  {
+  	color: #FFFEFE;
+  }
+  table, th, td
+  {
+  	border: 1px solid #FFFEFE;
+    border-collapse: collapse;
+    color: #FFFEFE;
+  }
+  th, td
+  {
+  	padding: 15px;
+  }
+</style>  
+  <body background="back.jpg">
+  <div style="background-color: #262550; padding: 15px;">
+   	<ul>
+                	<li><a href="DiceRoll.html">Dice Roller</a> </li>
+		<li><a href="CoinFlip.html">Coin Flip</a> </li>
+		<li><a href="MontyHall.html">Monty Hall</a> </li>
+       	</ul>
+    </div>
+<div style="background-color: #262550; padding: 15px;">
+	<h4 style="color: #BB8840">The famous Monty Hall paradox. How does it work? Choose a door you think the prize is in, then click continue. Finally choose whether you want to switch or stay.</h4>
+</div>
+<form>
+	Door 1:<br>
+	<input name="generate" type="button" value="Choose" onclick="first();"/><br>
+	Door 2:<br>
+	<input name="generate" type="button" value="Choose" onclick='second();'/><br>
+	Door 3:<br>
+	<input name="generate" type="button" value="Choose" onclick='third();'/><br>
+	Continue:<br>
+	<input name="generate" type="button" value="Continue" onclick='cont();'/><br>
+	Switch or Stay:<br>
+	<input name="generate" type="button" value="Switch" onclick='switch1();'/>
+	<input name="generate" type="button" value="Stay" onclick='stay();'/>
+</form>
+<div style="background-color: #262550; padding: 15px;">
+	<h4 style="color: #BB8840">If we look at the outcomes you can have for staying, you have a 1/3 chance of getting the prize. But if you switch, the probability doubles to 2/3 chance!<br>
+	That is because if you choose the prize and stay, you win.(1(Prize)/3) However if you choose wrong and switch, you win.(2(Goats)/3)</h4>
+</div>
+<table>
+	<tr>
+		<th>Choice</th>
+		<th>Door 1</th>
+		<th>Door 2</th>
+		<th>Stay</th>
+		<th>Switch</th>
+	</tr>
+	<tr>
+		<td>Prize</td>
+		<td>Goat 1(Shown)</td>
+		<td>Goat 2</td>
+		<td>Get Prize</td>
+		<td>Get Goat</td>
+	</tr>
+	<tr>
+		<td>Prize</td>
+		<td>Goat 2(Shown)</td>
+		<td>Goat 1</td>
+		<td>Get Prize</td>
+		<td>Get Goat</td>
+	</tr>
+	<tr>
+		<td>Goat 1</td>
+		<td>Prize</td>
+		<td>Goat 2(Shown)</td>
+		<td>Get Goat</td>
+		<td>Get Prize</td>
+	</tr>
+	<tr>
+		<td>Goat 1</td>
+		<td>Goat 2(Shown)</td>
+		<td>Prize</td>
+		<td>Get Goat</td>
+		<td>Get Prize</td>
+	</tr>
+	<tr>
+		<td>Goat 2</td>
+		<td>Prize</td>
+		<td>Goat 1(Shown)</td>
+		<td>Get Goat</td>
+		<td>Get Prize</td>
+	</tr>
+	<tr>
+		<td>Goat 2</td>
+		<td>Goat 1(Shown)</td>
+		<td>Prize</td>
+		<td>Get Goat</td>
+		<td>Get Prize</td>
+	</tr>
+</table>
+  	<script>
+  		var one = 0;
+  		var two = 0;
+  		var three = 0;
+  		var car = 0;
+  		function first()
+  		{
+  			one = 1;
+  			two = 0;
+  			three = 0;
+  		}
+  		function second()
+  		{
+  		  	one = 0;
+  			two = 1;
+  			three = 0;
+  		}
+  		function third()
+  		{
+  		  	one = 0;
+  			two = 0;
+  			three = 1;
+  		}
+  		function cont()
+  		{
+  			car = Math.floor(Math.random()*3)+1;
+  			if (one == 1)
+  			{
+  				if(car == 2)
+  				{
+  					confirm("There is a goat behind door 3. Do you want to switch to the other remaining door or do you want to stay with your choice?");
+  				}
+  				else
+  				{
+  					confirm("There is a goat behind door 2. Do you want to switch to the other remaining door or do you want to stay with your choice?");
+  				}	
+  			}
+  			else if (two==1)
+  			{
+  				if(car==1)
+  				{
+  					confirm("There is a goat behind door 3. Do you want to switch to the other remaining door or do you want to stay with your choice?");
+  				}	
+  				else
+  				{
+  					confirm("There is a goat behind door 1. Do you want to switch to the other remaining door or do you want to stay with your choice?");
+  				}	
+  			}
+  			else if (three == 1)
+  			{
+  				if(car==2)
+  				{
+  					confirm("There is a goat behind door 1. Do you want to switch to the other remaining door or do you want to stay with your choice?");
+  				}
+  				else
+  				{
+  					confirm("There is a goat behind door 2. Do you want to switch to the other remaining door or do you want to stay with your choice?");
+  				}
+  			}
+  			else
+  			{
+  				confirm("Choose a door you think the prize is in.");
+  			}
+  		}
+  		function stay()
+  		{
+  			if(one == 0 && two == 0 && three == 0)
+  				confirm("Choose a door you think the prize is in.");
+  			else if(one==1 && car==1)
+  				confirm("You Win!");
+  			else if(two==1 && car==2)
+  				confirm("You Win!");
+  			else if(three==1 && car==3)
+  				confirm("You Win!");
+  			else
+  				confirm("Better Luck Next Time");
+   		}
+   		function switch1()
+   		{
+   			if(one == 0 && two == 0 && three == 0)
+  				confirm("Choose a door you think the prize is in.");
+   			else if(one==1 && car==1)
+  				confirm("Better Luck Next Time");
+  			else if(two==1 && car==2)
+  				confirm("Better Luck Next Time");
+  			else if(three==1 && car==3)
+  				confirm("Better Luck Next Time");
+  			else
+  				confirm("You Win!");
+   		}
+  	</script>
+  </body>
+</html>
